@@ -1,3 +1,5 @@
+<import src="post-item/post-item-template.wxml" />
+
 <view>
     <swiper indicator-dots="true" autoplay="true" interval="2000">
         <swiper-item>
@@ -11,19 +13,12 @@
         </swiper-item>
     </swiper>
 
-    <view>
-        <view>
-            <image src="/images/avatar/1.png"></image>
-            <text>Nov 25 2016</text>
+    <block wx:for="{{posts_key}}" wx:for-item="item" wx:for-index="index" wx:key="unique">
+        <!--template模板-->
+        <view catchtap="onPostTap" data-postId="{{item.postId}}">
+            <template is="postItem" data="{{...item}}" />
         </view>
-        <text>正是虾肥蟹壮时</text>
-        <image src="/images/post/crab.png"></image>
-        <text></text>
-        <view>
-            <image src="src"></image>
-            <text></text>   
-            <image src="src"></image>
-            <text></text>
-        </view>
-    </view>
+        
+    </block>
+
 </view>
