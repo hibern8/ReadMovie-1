@@ -1,14 +1,16 @@
 
-
 <template name="starsTemplate">
     <view class="stars-container">
         <view class="stars">
-            <image src="/images/icon/star.png"></image>
-            <image src="/images/icon/star.png"></image>
-            <image src="/images/icon/star.png"></image>
-            <image src="/images/icon/star.png"></image>
-            <image src="/images/icon/star.png"></image>
+            <block wx:for="{{stars}}" wx:for-item="i" wx:key="1">
+                <image wx:if="{{i}}" src="/images/icon/star.png"></image>
+                <image wx:else src="/images/icon/none-star.png"></image>
+
+                <!--<image wx:if="{{i == 1}}" src="/images/icon/star.png"></image>
+                <image wx:if="{{i == 2}}" src="/images/icon/star.png"></image>
+                <image wx:else src="/images/icon/none-star.png"></image>[1,1,1,2,0]半星实现-->
+            </block>
         </view>
-        <text class="star-score">8.9</text>
+        <text class="star-score">{{score}}</text>
     </view>
 </template>
