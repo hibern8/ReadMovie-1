@@ -28,7 +28,7 @@ Page({
       wx.setStorageSync('posts_collected', postsCollected)
     }
 
-    if(app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === postId) {
+    if (app.globalData.g_isPlayingMusic && app.globalData.g_currentMusicPostId === postId) {
       this.setData({
         isPlayingMusic: true
       })
@@ -37,10 +37,10 @@ Page({
 
   },
 
-  setMusicMonitor:function() {
+  setMusicMonitor: function () {
     var that = this;
     //监听音乐播放
-    wx.onBackgroundAudioPlay(function() {
+    wx.onBackgroundAudioPlay(function () {
       that.setData({
         isPlayingMusic: true
       })
@@ -48,8 +48,17 @@ Page({
       app.globalData.g_currentMusicPostId = that.data.currentPostId;
     })
 
+    //监听音乐暂停
+    wx.onBackgroundAudioPause(function () {
+      that.setData({
+        isPlayingMusic: false
+      })
+      app.globalData.g_isPlayingMusic = false;
+      app.globalData.g_currentMusicPostId = null;
+    })
+
     //监听音乐停止。
-    wx.onBackgroundAudioPause(function() {
+    wx.onBackgroundAudioStop(function () {
       that.setData({
         isPlayingMusic: false
       })
@@ -157,11 +166,11 @@ Page({
     })
   },
 
-  onMusicTap:function(event) {
+  onMusicTap: function (event) {
     var currentPostId = this.data.currentPostId;
     var postData = postsData.postList[currentPostId];
     var isPlayingMusic = this.data.isPlayingMusic;
-    if(isPlayingMusic) {
+    if (isPlayingMusic) {
       wx.pauseBackgroundAudio();
       this.setData({
         isPlayingMusic: false
@@ -176,9 +185,9 @@ Page({
         isPlayingMusic: true
       })
     }
-    
 
-    
+
+
   }
 
 

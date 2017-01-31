@@ -5,7 +5,10 @@ Page({
   data: {
     inThears: {},
     comingSoon: {},
-    top250: {}
+    top250: {},
+    containerShow: true,
+    searchPanelShow: false,
+    searchResult: {}
   },
   onLoad: function (options) {
     // 生命周期函数--监听页面加载
@@ -27,8 +30,11 @@ Page({
     })
   },
 
-  onScrollLower:function(event) {
-    console.log("加载更多");
+  onMovieTap:function(event) {
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: 'movie-detail/movie-detail?id=' + movieId
+    })
   },
 
   //http请求函数
@@ -50,6 +56,31 @@ Page({
         console.log(error);
       }
     })
+
+  },
+
+  //取消搜索
+  onCancelImgTap:function(event) {
+    this.setData({
+      containerShow: true,
+      searchPanelShow: false,
+      searchResult: {}
+    })
+  },
+
+  //input焦点事件
+  onBindFocus:function(event) {
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    })
+  },
+
+  //输入字符搜索
+  onBindconfirm:function(event) {
+    var text = event.detail.value;
+    var searchUrl = app.globalData.doubanBase + "/v2/movie/search?q=" + text;
+    this.getMovieListData(searchUrl, "searchResult", "");
 
   },
   

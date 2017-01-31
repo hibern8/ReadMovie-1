@@ -15,27 +15,49 @@ function convertToStarsArray(stars) {
 
 //http请求函数
 function http(url, callBack) {
-    wx.request({
-      url: url,
-      data: {},
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      header: {
-        "Content-Type": "json"
-      }, // 设置请求的 header
-      success: function (res) {
-        callBack(res.data);
-      },
-      fail: function (error) {
-        // fail
-        console.log(error);
-      }
-    })
+  wx.request({
+    url: url,
+    data: {},
+    method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    header: {
+      "Content-Type": "json"
+    }, // 设置请求的 header
+    success: function (res) {
+      callBack(res.data);
+    },
+    fail: function (error) {
+      // fail
+      console.log(error);
+    }
+  })
 
+}
+
+function convertToCastString(casts) {
+  var castsjoin = "";
+  for (var idx in casts) {
+    castsjoin = castsjoin + casts[idx].name + " / ";
   }
+  return castsjoin.substring(0, castsjoin.length - 2);
+}
+
+function convertToCastInfos(casts) {
+  var castsArray = []
+  for (var idx in casts) {
+    var cast = {
+      img: casts[idx].avatars ? casts[idx].avatars.large : "",
+      name: casts[idx].name
+    }
+    castsArray.push(cast);
+  }
+  return castsArray;
+}
 
 
 
 module.exports = {
-    convertToStarsArray: convertToStarsArray,
-    http: http
+  convertToStarsArray: convertToStarsArray,
+  http: http,
+  convertToCastString: convertToCastString,
+  convertToCastInfos: convertToCastInfos
 }
