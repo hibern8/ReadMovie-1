@@ -30,6 +30,7 @@ Page({
     })
   },
 
+  //跳转到电影详情页
   onMovieTap:function(event) {
     var movieId = event.currentTarget.dataset.movieid;
     wx.navigateTo({

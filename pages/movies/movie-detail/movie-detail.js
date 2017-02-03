@@ -46,6 +46,15 @@ Page({
       summary: data.summary
     }
     this.setData({movie: movie});
+  },
+
+  ///查看图片
+  viewMoviePostImg:function(event) {
+    var src = event.currentTarget.dataset.src;
+    wx.previewImage({
+      current: src, // 当前显示图片的链接，不填则默认为 urls 的第一张
+      urls: [src] //需要预览的图片http链接列表
+    })
   }
 
 })
